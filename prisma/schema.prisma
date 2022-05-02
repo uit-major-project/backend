@@ -1,0 +1,133 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  // id        String   @id @default(uuid())
+  id        String   @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  firstname        String
+  lastname         String
+  email            String  @unique
+  image            String
+  pincode          String
+  phone            String?
+  permanentAddress String?
+  tasks            Task[]
+  // bills            Bill[]
+}
+
+enum TaskSize {
+  SMALL
+  MEDIUM
+  LARGE
+}
+
+enum TaskStatus {
+  OPEN
+  IN_PROGRESS
+  DONE
+  CANCELLED
+}
+
+enum TaskType {
+  GENERAL
+  CLEANING
+  LABOUR
+  ELECTRICIAN
+  PLUMBER
+  PAINTER
+  COOK
+  DRIVER
+  OTHER
+}
+
+enum Stars {
+  ONE
+  TWO
+  THREE
+  FOUR
+  FIVE
+}
+
+model Rating {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId      String
+  taskId      String
+  stars       Stars
+  userComment String
+  Task        Task[]
+}
+
+model Task {
+  id        String   @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // title       String
+  description String
+  dueDate     DateTime?
+  location    String
+  pincode     String
+  user        User      @relation(fields: [userId], references: [id])
+
+  taskerInContactId String
+  taskerAssignedId  String
+  taskerInContact   Tasker? @relation("TASKER_IN_CONTACT", fields: [taskerInContactId], references: [id])
+  taskerAssigned    Tasker? @relation("TASKER_ASSIGNED", fields: [taskerAssignedId], references: [id])
+  // bills        Bill[]
+
+  size   TaskSize
+  status TaskStatus
+
+  rating Rating @relation(fields: [ratingId], references: [id])
+
+  userId   String
+  ratingId String
+}
+
+model admin {
+  // id        String   @id @default(uuid())
+  id        String   @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  firstname        String
+  lastname         String
+  email            String  @unique
+  image            String?
+  phone            String?
+  permanentAddress String?
+}
+
+model Tasker {
+  // id        String   @id @default(uuid())
+  id        String   @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  firstname        String
+  lastname         String
+  email            String  @unique
+  image            String
+  pincode          String
+  phone            String?
+  permanentAddress String?
+  // tasks            Task[]
+
+  InContact Task[] @relation("TASKER_IN_CONTACT")
+  Assigned  Task[] @relation("TASKER_ASSIGNED")
+}
