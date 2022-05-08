@@ -128,6 +128,10 @@ model Tasker {
   permanentAddress String?
   // tasks            Task[]
 
-  InContact Task[] @relation("TASKER_IN_CONTACT")
-  Assigned  Task[] @relation("TASKER_ASSIGNED")
+  isVerified Boolean // documents are verified by admin
+  hasPaidOneTimeFee Boolean
+  isActive   Boolean // isActive is true when the tasker is available for tasks
+
+  inContact Task[] @relation("TASKER_IN_CONTACT")
+  assigned  Task[] @relation("TASKER_ASSIGNED")
 }
