@@ -20,7 +20,7 @@ model User {
   lastname         String
   email            String  @unique
   image            String
-  pincode          String
+  pincode          String?
   phone            String?
   permanentAddress String?
   tasks            Task[]
@@ -69,7 +69,7 @@ model Rating {
   taskId      String
   stars       Stars
   userComment String
-  Task        Task[]
+  task        Task[]
 }
 
 model Task {
