@@ -22,7 +22,7 @@ startServer();
 
 const corsOptions = {
   origin: process.env.APP_DOMAIN,
-  credentials: true,
+  credentials: process.env.NODE_ENV === 'development' ? false : true,
 };
 
 app.use(cors(corsOptions));

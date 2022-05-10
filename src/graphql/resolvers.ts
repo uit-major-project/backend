@@ -98,7 +98,7 @@ export const resolvers = {
             image: decodedToken.picture,
           },
         });
-        console.log('newUser', newUser);
+        // console.log('newUser', newUser);
         return {
           ...newUser,
         };
