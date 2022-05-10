@@ -15,7 +15,7 @@ async function startServer() {
   server = createLocalServer();
   await server.start();
 
-  server.applyMiddleware({ app });
+  server.applyMiddleware({ app, cors: false });
 }
 
 startServer();
