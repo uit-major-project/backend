@@ -5,6 +5,9 @@ import cookieParser from 'cookie-parser';
 
 import { ApolloServer } from 'apollo-server-express';
 
+import * as Sentry from '@sentry/node';
+import { RewriteFrames } from '@sentry/integrations';
+
 let server: ApolloServer<any>;
 
 const PORT = process.env.PORT || 4000;
@@ -19,6 +22,31 @@ async function startServer() {
 }
 
 startServer();
+
+Sentry.init({
+  dsn: process.env.SENTRY_DSN,
+  tracesSampleRate: 1.0,
+  integrations: [
+    new RewriteFrames({
+      root: global.__dirname,
+    }),
+  ],
+});
+
+app.use(
+  Sentry.Handlers.errorHandler({
+    shouldHandleError(error) {
+      // Capture all 404 and 500 errors
+      if (
+        error.status &&
+        [400, 401, 402, 403, 404, 500].includes(Number(error.status))
+      ) {
+        return true;
+      }
+      return false;
+    },
+  })
+);
 
 console.log('APP_DOMAIN', process.env.APP_DOMAIN);
 
