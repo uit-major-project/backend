@@ -20,9 +20,11 @@ async function startServer() {
 
 startServer();
 
+console.log('APP_DOMAIN', process.env.APP_DOMAIN);
+
 const corsOptions = {
   origin: process.env.APP_DOMAIN,
-  credentials: process.env.NODE_ENV === 'development' ? false : true,
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
