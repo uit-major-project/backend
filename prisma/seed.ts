@@ -5,10 +5,10 @@ const prisma = new PrismaClient();
 async function databaseSeeder() {
   await prisma.user.create({
     data: {
-      id: '213984365654',
-      firstname: 'test',
-      lastname: 'email',
-      email: 'testemail2@gmail.com',
+      id: '213984365655',
+      firstname: 'test1',
+      lastname: 'email1',
+      email: 'testemail22@gmail.com',
       // role: 'ADMIN',
       image: '',
       pincode: '',
