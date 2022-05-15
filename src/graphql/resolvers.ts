@@ -35,6 +35,11 @@ export const resolvers = {
 
     getCurrentUser: (_parent: any, _args: any, ctx: Context) => {
       const token = ctx.req.cookies['jwt'] || '';
+
+      if (token === '') {
+        return {};
+      }
+
       const decodedToken: any = jwtDecode(token);
 
       console.log('decodedToken from cu', decodedToken);

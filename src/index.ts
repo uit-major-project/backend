@@ -55,11 +55,13 @@ const corsOptions = {
   credentials: true,
 };
 
-if (process.env.NODE_ENV !== 'production') {
-  app.use(cors());
-} else {
-  app.use(cors(corsOptions));
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   app.use(cors(corsOptions));
+// } else {
+//   app.use(cors(corsOptions));
+// }
+
+app.use(cors(corsOptions));
 
 app.use(cookieParser());
 
