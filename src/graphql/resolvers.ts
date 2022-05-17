@@ -37,7 +37,7 @@ export const resolvers = {
       const token = ctx.req.cookies['jwt'] || '';
 
       if (token === '') {
-        return {};
+        return null;
       }
 
       const decodedToken: any = jwtDecode(token);

@@ -141,8 +141,10 @@ export const typeDefs = gql`
     assigned: [Task]
   }
 
+  # union CurrentUser = User | null
+
   type Query {
-    getCurrentUser: User!
+    getCurrentUser: User
     users: [User]!
     user(id: ID!): User!
   }
