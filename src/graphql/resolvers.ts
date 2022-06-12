@@ -111,9 +111,14 @@ export const resolvers = {
         secure: process.env.NODE_ENV === 'production' ? true : false,
       };
 
-      if (process.env.NODE_ENV === 'production') {
-        options.domain = process.env.APP_DOMAIN;
+      if (process.env.NODE_ENV !== 'production') {
+        // options.domain = process.env.APP_DOMAIN;
+        options.domain = 'localhost';
+      } else {
+        options.domain = process.env.ROOT_DOMAIN_NAME;
       }
+
+      console.log('options', options);
 
       ctx.res.cookie('jwt', _args.jwt, options);
 
