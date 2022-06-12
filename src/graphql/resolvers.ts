@@ -33,6 +33,9 @@ export const resolvers = {
     books: () => books,
     questions: () => questions,
 
+    /*
+      USER QUERIES 
+    */
     getCurrentUser: (_parent: any, _args: any, ctx: Context) => {
       const token = ctx.req.cookies['jwt'] || '';
 
@@ -54,6 +57,30 @@ export const resolvers = {
     },
     user: (_parent: any, _args: any, ctx: Context) => {
       return ctx.prisma.user.findUnique({
+        where: { id: _args.id },
+      });
+    },
+
+    /*
+      TASKER QUERIES
+    */
+    taskers: (_parent: any, _args: any, ctx: Context) => {
+      return ctx.prisma.tasker.findMany();
+    },
+    tasker: (_parent: any, _args: any, ctx: Context) => {
+      return ctx.prisma.tasker.findUnique({
+        where: { id: _args.id },
+      });
+    },
+
+    /*
+      TASK QUERIES 
+    */
+    tasks: (_parent: any, _args: any, ctx: Context) => {
+      return ctx.prisma.task.findMany();
+    },
+    task: (_parent: any, _args: any, ctx: Context) => {
+      return ctx.prisma.task.findUnique({
         where: { id: _args.id },
       });
     },
@@ -101,6 +128,7 @@ export const resolvers = {
             lastname: decodedToken.family_name,
             email: decodedToken.email,
             image: decodedToken.picture,
+            // tasks: [] as any,
           },
         });
         // console.log('newUser', newUser);
@@ -139,6 +167,26 @@ export const resolvers = {
           phone: true,
           permanentAddress: true,
         },
+      });
+    },
+
+    // task resolvers
+    // createTask: (_parent: any, _args: any, ctx: Context) => {
+    //   return ctx.prisma.task.create({
+    //     data: _args,
+    //   });
+    // },
+
+    // tasker resolvers
+    createTasker: (_parent: any, _args: any, ctx: Context) => {
+      return ctx.prisma.tasker.create({
+        data: _args,
+      });
+    },
+    updateTasker: (_parent: any, _args: any, ctx: Context) => {
+      return ctx.prisma.tasker.update({
+        where: { id: _args.id },
+        data: _args,
       });
     },
   },

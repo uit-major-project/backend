@@ -84,19 +84,19 @@ model Task {
   pincode     String
   user        User      @relation(fields: [userId], references: [id])
 
+  taskerInContact   Tasker @relation("TASKER_IN_CONTACT", fields: [taskerInContactId], references: [id])
   taskerInContactId String
-  taskerAssignedId  String
-  taskerInContact   Tasker? @relation("TASKER_IN_CONTACT", fields: [taskerInContactId], references: [id])
   taskerAssigned    Tasker? @relation("TASKER_ASSIGNED", fields: [taskerAssignedId], references: [id])
+  taskerAssignedId  String?
   // bills        Bill[]
 
   size   TaskSize
   status TaskStatus
 
-  rating Rating @relation(fields: [ratingId], references: [id])
+  rating Rating? @relation(fields: [ratingId], references: [id])
 
   userId   String
-  ratingId String
+  ratingId String?
 }
 
 model admin {

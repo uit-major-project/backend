@@ -87,19 +87,19 @@ export const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
 
-    description: String
+    description: String!
     dueDate: String
-    location: String
-    pincode: String
-    user: User
+    location: String!
+    pincode: String!
+    user: User!
 
     taskerInContactId: String
     taskerAssignedId: String
-    taskerInContact: Tasker
+    taskerInContact: Tasker!
     taskerAssigned: Tasker
 
-    size: TaskSize
-    status: TaskStatus
+    size: TaskSize!
+    status: TaskStatus!
 
     rating: Rating
 
@@ -144,9 +144,18 @@ export const typeDefs = gql`
   # union CurrentUser = User | null
 
   type Query {
+    # user
     getCurrentUser: User
     users: [User]!
     user(id: ID!): User!
+
+    # tasker
+    tasker(id: ID!): Tasker!
+    taskers: [Tasker]!
+
+    # task
+    task(id: ID!): Task!
+    tasks: [Task]
   }
 
   type Mutation {
@@ -170,5 +179,33 @@ export const typeDefs = gql`
 
     # login/signup using Sign In With Google button takes in a jwt
     loginWithGoogle(jwt: String!): User!
+
+    # tasker
+    createTasker(
+      id: ID!
+      firstname: String!
+      lastname: String!
+      email: String!
+      image: String!
+      pincode: String!
+    ): Tasker
+
+    updateTasker(
+      id: ID!
+      createdAt: String!
+      updatedAt: String!
+
+      firstname: String!
+      lastname: String!
+      email: String!
+      image: String!
+      pincode: String!
+      phone: String
+      permanentAddress: String
+
+      isVerified: Boolean!
+      hasPaidOneTimeFee: Boolean!
+      isActive: Boolean! # inContact: [Task] # assigned: [Task]
+    ): Tasker
   }
 `;
