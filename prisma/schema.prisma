@@ -28,36 +28,37 @@ model User {
 }
 
 enum TaskSize {
-  SMALL
-  MEDIUM
-  LARGE
+  small
+  medium
+  large
 }
 
 enum TaskStatus {
-  OPEN
-  IN_PROGRESS
-  DONE
-  CANCELLED
+  open
+  in_progress
+  done
+  cancelled
 }
 
 enum TaskType {
-  GENERAL
-  CLEANING
-  LABOUR
-  ELECTRICIAN
-  PLUMBER
-  PAINTER
-  COOK
-  DRIVER
-  OTHER
+  cleaning
+  moving
+  electrician
+  painter
+  cook
+  mechanic
+  plumber
+  driver
+  technician
+  mounting
 }
 
 enum Stars {
-  ONE
-  TWO
-  THREE
-  FOUR
-  FIVE
+  one
+  two
+  three
+  four
+  five
 }
 
 model Rating {
@@ -70,6 +71,7 @@ model Rating {
   stars       Stars
   userComment String
   task        Task[]
+  Tasker      Tasker[]
 }
 
 model Task {
@@ -84,7 +86,7 @@ model Task {
   pincode     String
   user        User      @relation(fields: [userId], references: [id])
 
-  taskerInContact   Tasker @relation("TASKER_IN_CONTACT", fields: [taskerInContactId], references: [id])
+  taskerInContact   Tasker  @relation("TASKER_IN_CONTACT", fields: [taskerInContactId], references: [id])
   taskerInContactId String
   taskerAssigned    Tasker? @relation("TASKER_ASSIGNED", fields: [taskerAssignedId], references: [id])
   taskerAssignedId  String?
@@ -123,15 +125,23 @@ model Tasker {
   lastname         String
   email            String  @unique
   image            String
-  pincode          String
+  pincode          String?
   phone            String?
   permanentAddress String?
   // tasks            Task[]
 
-  isVerified Boolean // documents are verified by admin
+  pricePerHourInRs Int?
+
+  ratings Rating? @relation(fields: [ratingId], references: [id])
+
+  experience String?
+  category   TaskType?
+
+  isVerified        Boolean // documents are verified by admin
   hasPaidOneTimeFee Boolean
-  isActive   Boolean // isActive is true when the tasker is available for tasks
+  isActive          Boolean // isActive is true when the tasker is available for tasks
 
   inContact Task[] @relation("TASKER_IN_CONTACT")
   assigned  Task[] @relation("TASKER_ASSIGNED")
+  ratingId  String?
 }

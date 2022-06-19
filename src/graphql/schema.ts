@@ -4,24 +4,9 @@ import { gql } from 'apollo-server';
 // that together define the "shape" of queries that are executed against
 // your data.
 export const typeDefs = gql`
-  # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
-  # This "Book" type defines the queryable fields for every book in our data source.
-  type Book {
-    title: String
-    author: String
-  }
   # The "Query" type is special: it lists all of the available queries that
   # clients can execute, along with the return type for each. In this
   # case, the "books" query returns an array of zero or more Books (defined above).
-  type Query {
-    books: [Book]
-    questions: [Question]
-  }
-  type Question {
-    question: String!
-    answer: String
-    options: [String]
-  }
 
   type User {
     id: ID!
@@ -38,36 +23,37 @@ export const typeDefs = gql`
   }
 
   enum TaskSize {
-    SMALL
-    MEDIUM
-    LARGE
+    small
+    medium
+    large
   }
 
   enum TaskStatus {
-    OPEN
-    IN_PROGRESS
-    DONE
-    CANCELLED
+    open
+    in_progress
+    done
+    cancelled
   }
 
   enum TaskType {
-    GENERAL
-    CLEANING
-    LABOUR
-    ELECTRICIAN
-    PLUMBER
-    PAINTER
-    COOK
-    DRIVER
-    OTHER
+    cleaning
+    moving
+    electrician
+    painter
+    cook
+    mechanic
+    plumber
+    driver
+    technician
+    mounting
   }
 
   enum Stars {
-    ONE
-    TWO
-    THREE
-    FOUR
-    FIVE
+    one
+    two
+    three
+    four
+    five
   }
 
   type Rating {
@@ -122,16 +108,21 @@ export const typeDefs = gql`
 
   type Tasker {
     id: ID!
-    createdAt: String!
-    updatedAt: String!
+    createdAt: String
+    updatedAt: String
 
     firstname: String!
     lastname: String!
     email: String!
     image: String!
-    pincode: String!
+    pincode: String
     phone: String
     permanentAddress: String
+
+    pricePerHour: Int
+    ratings: [Rating]
+    experience: String
+    category: TaskType
 
     isVerified: Boolean
     hasPaidOneTimeFee: Boolean
@@ -158,7 +149,16 @@ export const typeDefs = gql`
     tasks: [Task]
   }
 
+  type TaskerGoogleLoginResponse {
+    tasker: Tasker!
+    hasAccount: Boolean!
+    message: String
+  }
+
   type Mutation {
+    #
+    # user
+    #
     createUser(
       id: ID!
       firstname: String!
@@ -180,7 +180,11 @@ export const typeDefs = gql`
     # login/signup using Sign In With Google button takes in a jwt
     loginWithGoogle(jwt: String!): User!
 
+    #
     # tasker
+    #
+    taskerLoginWithGoogle(jwt: String!): TaskerGoogleLoginResponse
+
     createTasker(
       id: ID!
       firstname: String!
@@ -192,20 +196,22 @@ export const typeDefs = gql`
 
     updateTasker(
       id: ID!
-      createdAt: String!
-      updatedAt: String!
 
-      firstname: String!
-      lastname: String!
-      email: String!
-      image: String!
-      pincode: String!
+      firstname: String
+      lastname: String
+      email: String
+      image: String
+      pincode: String
       phone: String
       permanentAddress: String
 
-      isVerified: Boolean!
-      hasPaidOneTimeFee: Boolean!
-      isActive: Boolean! # inContact: [Task] # assigned: [Task]
+      pricePerHour: Int
+      experience: String
+      category: TaskType
+
+      isVerified: Boolean
+      hasPaidOneTimeFee: Boolean
+      isActive: Boolean # inContact: [Task] # assigned: [Task]
     ): Tasker
   }
 `;

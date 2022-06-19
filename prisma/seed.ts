@@ -2,6 +2,40 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+enum TaskSize {
+  small = 'small',
+  medium = 'medium',
+  large = 'large',
+}
+
+enum TaskStatus {
+  open = 'open',
+  in_progress = 'in_progress',
+  done = 'done',
+  cancelled = 'cancelled',
+}
+
+enum TaskType {
+  cleaning = 'cleaning',
+  moving = 'moving',
+  electrician = 'electrician',
+  mechanic = 'mechanic',
+  mounting = 'mounting',
+  plumber = 'plumber',
+  painter = 'painter',
+  cook = 'cook',
+  driver = 'driver',
+  technician = 'technician',
+}
+
+enum Stars {
+  one = 'one',
+  two = 'two',
+  three = 'three',
+  four = 'four',
+  five = 'five',
+}
+
 async function databaseSeeder() {
   await prisma.user.create({
     data: {
@@ -48,8 +82,8 @@ async function databaseSeeder() {
           },
           // taskerAssigned: [],
 
-          size: 'SMALL',
-          status: 'OPEN',
+          size: 'small',
+          status: 'open',
           // type: 'cleaning',
 
           // rating: '',
@@ -79,6 +113,10 @@ async function seedTaskers() {
       isVerified: false,
       hasPaidOneTimeFee: true,
       isActive: false,
+
+      pricePerHourInRs: 100,
+      experience: '',
+      category: TaskType.cook,
 
       // inContact: [],
       // assigned: [],
@@ -159,6 +197,10 @@ async function main() {
       hasPaidOneTimeFee: true,
       isActive: false,
 
+      pricePerHourInRs: 350,
+      experience: '',
+      category: TaskType.cleaning,
+
       // inContact: [],
       // assigned: [],
     },
@@ -181,6 +223,9 @@ async function main() {
       hasPaidOneTimeFee: true,
       isActive: false,
 
+      pricePerHourInRs: 100,
+      experience: '',
+      category: TaskType.electrician,
       // inContact: [],
       // assigned: [],
     },
@@ -203,6 +248,11 @@ async function main() {
       hasPaidOneTimeFee: true,
       isActive: false,
 
+      pricePerHourInRs: 150,
+      category: TaskType.cleaning,
+      experience:
+        // eslint-disable-next-line quotes
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make atype specimen book. It has survived not only five centuries",
       // inContact: [],
       // assigned: [],
     },
@@ -234,8 +284,8 @@ async function main() {
         },
       },
       // taskerAssignedId: rahul.id,
-      size: 'MEDIUM',
-      status: 'OPEN',
+      size: 'medium',
+      status: 'open',
     },
   });
   const doPainting = await prisma.task.create({
@@ -256,8 +306,8 @@ async function main() {
         },
       },
       // taskerAssignedId: ankit.id,
-      size: 'MEDIUM',
-      status: 'OPEN',
+      size: 'small',
+      status: 'open',
     },
   });
 
