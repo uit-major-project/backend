@@ -213,5 +213,44 @@ export const typeDefs = gql`
       hasPaidOneTimeFee: Boolean
       isActive: Boolean # inContact: [Task] # assigned: [Task]
     ): Tasker
+
+    #
+    # TASK
+    #
+    createTask(
+      # id: ID!
+      # createdAt DateTime @default(now())
+      # updatedAt DateTime @updatedAt
+
+      # // title       String
+      description: String!
+      dueDate: String
+      location: String!
+      pincode: String!
+      userEmail: String!
+      taskerInContactEmail: String!
+
+      # bills        Bill[]
+
+      size: TaskSize!
+      status: TaskStatus # rating: Rating
+    ): Task
+
+    updateTask(
+      id: ID!
+
+      firstname: String
+      description: String!
+      dueDate: String
+      location: String!
+      pincode: String!
+      userEmail: String!
+      taskerInContactEmail: String!
+
+      # bills        Bill[]
+
+      size: TaskSize!
+      status: TaskStatus # rating: Rating
+    ): Task
   }
 `;
