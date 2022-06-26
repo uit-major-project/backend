@@ -87,6 +87,9 @@ export const typeDefs = gql`
     size: TaskSize!
     status: TaskStatus!
 
+    category: TaskType!
+    isPaymentDone: Boolean!
+
     rating: Rating
 
     userId: String
@@ -128,6 +131,8 @@ export const typeDefs = gql`
     hasPaidOneTimeFee: Boolean
     isActive: Boolean
 
+    pricePerHourInRs: Int
+
     inContact: [Task]
     assigned: [Task]
   }
@@ -147,6 +152,7 @@ export const typeDefs = gql`
     # task
     task(id: ID!): Task!
     tasks: [Task]
+    tasksByUserId(userId: ID!): [Task]!
   }
 
   type TaskerGoogleLoginResponse {

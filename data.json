@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Bat",
+    "description": "",
+    "image": "",
+    "countInStock": 25,
+    "user": ""
+  },
+  {
+    "name": "Ball",
+    "description": "",
+    "image": "",
+    "countInStock": 25,
+    "user": ""
+  },
+  {
+    "name": "Badminton racket",
+    "description": "",
+    "image": "",
+    "countInStock": 25,
+    "user": ""
+  },
+  {
+    "name": "Football",
+    "description": "",
+    "image": "",
+    "countInStock": 25,
+    "user": ""
+  },
+  {
+    "name": "Basketball",
+    "description": "",
+    "image": "",
+    "countInStock": 25,
+    "user": ""
+  },
+  {
+    "name": "Volleyball",
+    "description": "",
+    "image": "",
+    "countInStock": 25,
+    "user": ""
+  },
+  {
+    "name": "Football nets",
+    "description": "",
+    "image": "",
+    "countInStock": 25,
+    "user": ""
+  },
+  {
+    "name": "Chess board",
+    "description": "",
+    "image": "",
+    "countInStock": 25,
+    "user": ""
+  },
+  {
+    "name": "Carrom",
+    "description": "",
+    "image": "",
+    "countInStock": 25,
+    "user": ""
+  },
+  {
+    "name": "Table tennis",
+    "description": "",
+    "image": "",
+    "countInStock": 25,
+    "user": ""
+  }
+]

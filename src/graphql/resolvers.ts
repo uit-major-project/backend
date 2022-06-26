@@ -83,6 +83,17 @@ export const resolvers = {
         where: { id: _args.id },
       });
     },
+    tasksByUserId: async (_parent: any, _args: any, ctx: Context) => {
+      const tasks = await ctx.prisma.task.findMany({
+        where: { userId: _args.userId },
+        include: {
+          taskerInContact: true,
+        },
+      });
+
+      console.log('tasks', tasks);
+      return tasks;
+    },
   },
 
   Mutation: {
@@ -167,6 +178,13 @@ export const resolvers = {
       return ctx.prisma.user.update({
         where: { id: _args.id },
         data: _args,
+        include: {
+          tasks: {
+            include: {
+              taskerInContact: true,
+            },
+          },
+        },
       });
     },
     deleteUser: (_parent: any, _args: { id: string }, ctx: Context) => {
@@ -283,7 +301,7 @@ export const resolvers = {
       const taskData: any = {
         id: uuidv4(),
         description: _args.description,
-        dueDate: new Date().toISOString(),
+        dueDate: _args.dueDate,
         location: _args.location,
         pincode: _args.pincode,
         user: {
@@ -313,6 +331,9 @@ export const resolvers = {
       return ctx.prisma.task.update({
         where: { id: _args.id },
         data: _args,
+        include: {
+          taskerInContact: true,
+        },
       });
     },
   },

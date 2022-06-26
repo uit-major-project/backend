@@ -60,7 +60,7 @@ async function databaseSeeder() {
           // updatedAt: '2020-01-05',
 
           description: 'Cleaning',
-          dueDate: new Date(),
+          dueDate: new Date().toISOString(),
           location: 'Location1',
           pincode: '123456',
           // user: {
@@ -198,7 +198,8 @@ async function main() {
       isActive: false,
 
       pricePerHourInRs: 350,
-      experience: '',
+      experience:
+        'I have over 4 years of working experience with these type of tasks. I have good understanding of english language. 2 hrs min and travel expense may be added depending on distance. I look forward to working with you soon.',
       category: TaskType.cleaning,
 
       // inContact: [],
@@ -224,7 +225,8 @@ async function main() {
       isActive: false,
 
       pricePerHourInRs: 100,
-      experience: '',
+      experience:
+        'I have over 4 years of working experience with these type of tasks. I have good understanding of english language. 2 hrs min and travel expense may be added depending on distance. I look forward to working with you soon.',
       category: TaskType.electrician,
       // inContact: [],
       // assigned: [],
@@ -270,7 +272,7 @@ async function main() {
     data: {
       id: '1',
       description: '',
-      dueDate: new Date(),
+      dueDate: new Date().toISOString(),
       location: 'Location1',
       pincode: '123456',
       user: {
@@ -292,7 +294,7 @@ async function main() {
     data: {
       id: '2',
       description: '',
-      dueDate: new Date(),
+      dueDate: new Date().toISOString(),
       location: 'Location1',
       pincode: '123456',
       user: {

@@ -95,6 +95,9 @@ model Task {
   size   TaskSize
   status TaskStatus
 
+  category TaskType @default(cleaning)
+  isPaymentDone  Boolean  @default(false)
+
   rating Rating? @relation(fields: [ratingId], references: [id])
 
   userId   String
