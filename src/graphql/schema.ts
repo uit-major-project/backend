@@ -141,7 +141,7 @@ export const typeDefs = gql`
 
   type Query {
     # user
-    getCurrentUser: User
+    getCurrentUser(jwt: String!): User
     users: [User]!
     user(id: ID!): User!
 

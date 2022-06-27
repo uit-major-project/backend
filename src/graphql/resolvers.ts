@@ -10,13 +10,13 @@ export const resolvers = {
       USER QUERIES 
     */
     getCurrentUser: async (_parent: any, _args: any, ctx: Context) => {
-      const token = ctx.req.cookies['jwt'] || '';
+      // const token = ctx.req.cookies['jwt'] || '';
 
-      if (token === '') {
-        return null;
-      }
+      // if (token === '') {
+      //   return null;
+      // }
 
-      const decodedToken: any = jwtDecode(token);
+      const decodedToken: any = jwtDecode(_args.jwt);
 
       console.log('decodedToken from cu', decodedToken);
 
