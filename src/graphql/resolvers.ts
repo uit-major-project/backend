@@ -175,9 +175,10 @@ export const resolvers = {
       });
     },
     updateUser: (_parent: any, _args: any, ctx: Context) => {
+      console.log('_args', _args);
       return ctx.prisma.user.update({
         where: { id: _args.id },
-        data: _args,
+        data: { ..._args, updatedAt: new Date().toISOString() },
         include: {
           tasks: {
             include: {

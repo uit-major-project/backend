@@ -86,6 +86,8 @@ async function databaseSeeder() {
           status: 'open',
           // type: 'cleaning',
 
+          category: 'cleaning',
+
           // rating: '',
 
           // userId: '1111111',
@@ -288,6 +290,8 @@ async function main() {
       // taskerAssignedId: rahul.id,
       size: 'medium',
       status: 'open',
+
+      category: 'cleaning',
     },
   });
   const doPainting = await prisma.task.create({
@@ -310,6 +314,8 @@ async function main() {
       // taskerAssignedId: ankit.id,
       size: 'small',
       status: 'open',
+
+      category: 'painter',
     },
   });
 
