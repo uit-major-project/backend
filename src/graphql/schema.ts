@@ -240,8 +240,8 @@ export const typeDefs = gql`
 
       size: TaskSize!
       status: TaskStatus # rating: Rating
-      category: TaskCategory
-    ): Task
+      category: TaskCategory!
+    ): Task!
 
     updateTask(
       id: ID!

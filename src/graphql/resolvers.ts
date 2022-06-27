@@ -318,6 +318,7 @@ export const resolvers = {
         // taskerAssignedId: rahul.id,
         size: _args.size,
         status: 'open',
+        category: _args.category,
       };
 
       return ctx.prisma.task.create({
