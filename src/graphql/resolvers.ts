@@ -12,9 +12,9 @@ export const resolvers = {
     getCurrentUser: async (_parent: any, _args: any, ctx: Context) => {
       // const token = ctx.req.cookies['jwt'] || '';
 
-      // if (token === '') {
-      //   return null;
-      // }
+      if (_args.jwt === '') {
+        return null;
+      }
 
       const decodedToken: any = jwtDecode(_args.jwt);
 
