@@ -15,7 +15,7 @@ enum TaskStatus {
   cancelled = 'cancelled',
 }
 
-enum TaskType {
+enum TaskCategory {
   cleaning = 'cleaning',
   moving = 'moving',
   electrician = 'electrician',
@@ -118,7 +118,7 @@ async function seedTaskers() {
 
       pricePerHourInRs: 100,
       experience: '',
-      category: TaskType.cook,
+      category: TaskCategory.cook,
 
       // inContact: [],
       // assigned: [],
@@ -202,7 +202,7 @@ async function main() {
       pricePerHourInRs: 350,
       experience:
         'I have over 4 years of working experience with these type of tasks. I have good understanding of english language. 2 hrs min and travel expense may be added depending on distance. I look forward to working with you soon.',
-      category: TaskType.cleaning,
+      category: TaskCategory.cleaning,
 
       // inContact: [],
       // assigned: [],
@@ -229,7 +229,7 @@ async function main() {
       pricePerHourInRs: 100,
       experience:
         'I have over 4 years of working experience with these type of tasks. I have good understanding of english language. 2 hrs min and travel expense may be added depending on distance. I look forward to working with you soon.',
-      category: TaskType.electrician,
+      category: TaskCategory.electrician,
       // inContact: [],
       // assigned: [],
     },
@@ -253,7 +253,7 @@ async function main() {
       isActive: false,
 
       pricePerHourInRs: 150,
-      category: TaskType.cleaning,
+      category: TaskCategory.cleaning,
       experience:
         // eslint-disable-next-line quotes
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make atype specimen book. It has survived not only five centuries",

@@ -40,7 +40,7 @@ enum TaskStatus {
   cancelled
 }
 
-enum TaskType {
+enum TaskCategory {
   cleaning
   moving
   electrician
@@ -95,7 +95,7 @@ model Task {
   size   TaskSize
   status TaskStatus
 
-  category TaskType
+  category TaskCategory
   isPaymentDone  Boolean  @default(false)
 
   rating Rating? @relation(fields: [ratingId], references: [id])
@@ -138,7 +138,7 @@ model Tasker {
   ratings Rating? @relation(fields: [ratingId], references: [id])
 
   experience String?
-  category   TaskType?
+  category   TaskCategory?
 
   isVerified        Boolean // documents are verified by admin
   hasPaidOneTimeFee Boolean

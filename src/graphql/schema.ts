@@ -35,7 +35,7 @@ export const typeDefs = gql`
     cancelled
   }
 
-  enum TaskType {
+  enum TaskCategory {
     cleaning
     moving
     electrician
@@ -87,7 +87,7 @@ export const typeDefs = gql`
     size: TaskSize!
     status: TaskStatus!
 
-    category: TaskType!
+    category: TaskCategory!
     isPaymentDone: Boolean!
 
     rating: Rating
@@ -125,7 +125,7 @@ export const typeDefs = gql`
     pricePerHour: Int
     ratings: [Rating]
     experience: String
-    category: TaskType
+    category: TaskCategory
 
     isVerified: Boolean
     hasPaidOneTimeFee: Boolean
@@ -213,7 +213,7 @@ export const typeDefs = gql`
 
       pricePerHour: Int
       experience: String
-      category: TaskType
+      category: TaskCategory
 
       isVerified: Boolean
       hasPaidOneTimeFee: Boolean
@@ -240,23 +240,24 @@ export const typeDefs = gql`
 
       size: TaskSize!
       status: TaskStatus # rating: Rating
+      category: TaskCategory
     ): Task
 
     updateTask(
       id: ID!
 
       firstname: String
-      description: String!
+      description: String
       dueDate: String
-      location: String!
-      pincode: String!
-      userEmail: String!
-      taskerInContactEmail: String!
+      location: String
+      pincode: String
+      userEmail: String
+      taskerInContactEmail: String
 
       # bills        Bill[]
 
-      size: TaskSize!
+      size: TaskSize
       status: TaskStatus # rating: Rating
-    ): Task
+    ): Task!
   }
 `;
