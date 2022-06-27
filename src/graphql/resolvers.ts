@@ -120,9 +120,9 @@ export const resolvers = {
       date.setDate(date.getDate() + 7);
 
       const options: any = {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production' ? true : false,
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+        // httpOnly: true,
+        // secure: process.env.NODE_ENV === 'production' ? true : false,
+        // sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
       };
 
       if (process.env.NODE_ENV !== 'production') {
