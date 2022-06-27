@@ -11,11 +11,11 @@ export type Context = {
 };
 
 export async function createContext({ req, res }: any): Promise<any> {
-  const token = req.cookies['jwt'] || '';
+  // const token = req.cookies['jwt'] || '';
 
-  const decoded = jwtDecode(token);
+  // const decoded = jwtDecode(token);
 
-  console.log('token', decoded);
+  // console.log('token', decoded);
 
   // const user = req.user || null;
   // console.log('res', res);
@@ -24,7 +24,7 @@ export async function createContext({ req, res }: any): Promise<any> {
     req,
     res,
     prisma,
-    decoded,
+    // decoded,
   };
 }
 // export async function(req: any):Promise<any> {
