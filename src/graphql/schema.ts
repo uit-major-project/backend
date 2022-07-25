@@ -45,7 +45,7 @@ export const typeDefs = gql`
     plumber
     driver
     technician
-    mounting
+    # mounting
   }
 
   enum Stars {
@@ -133,6 +133,11 @@ export const typeDefs = gql`
 
     pricePerHourInRs: Int
 
+    rating: String
+    ratingCount: Int
+
+    area: String
+
     inContact: [Task]
     assigned: [Task]
   }
@@ -214,6 +219,11 @@ export const typeDefs = gql`
       pricePerHour: Int
       experience: String
       category: TaskCategory
+
+      rating: String
+      ratingCount: Int
+
+      area: String
 
       isVerified: Boolean
       hasPaidOneTimeFee: Boolean

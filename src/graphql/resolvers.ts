@@ -260,6 +260,11 @@ export const resolvers = {
             isVerified: false,
             hasPaidOneTimeFee: false,
             isActive: false,
+
+            rating: '',
+            ratingCount: 0,
+
+            area: 'Karond',
             // tasks: [] as any,
           },
         });

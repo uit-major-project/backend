@@ -1,5 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 
+import taskers from './data/taskers.json';
+
 const prisma = new PrismaClient();
 
 enum TaskSize {
@@ -19,13 +21,13 @@ enum TaskCategory {
   cleaning = 'cleaning',
   moving = 'moving',
   electrician = 'electrician',
-  mechanic = 'mechanic',
-  mounting = 'mounting',
-  plumber = 'plumber',
   painter = 'painter',
   cook = 'cook',
+  mechanic = 'mechanic',
+  plumber = 'plumber',
   driver = 'driver',
   technician = 'technician',
+  // mounting = 'mounting',
 }
 
 enum Stars {
@@ -120,6 +122,11 @@ async function seedTaskers() {
       experience: '',
       category: TaskCategory.cook,
 
+      rating: '',
+      ratingCount: 0,
+
+      area: 'Karond',
+
       // inContact: [],
       // assigned: [],
     },
@@ -203,6 +210,10 @@ async function main() {
       experience:
         'I have over 4 years of working experience with these type of tasks. I have good understanding of english language. 2 hrs min and travel expense may be added depending on distance. I look forward to working with you soon.',
       category: TaskCategory.cleaning,
+      rating: '',
+      ratingCount: 0,
+
+      area: 'Karond',
 
       // inContact: [],
       // assigned: [],
@@ -230,6 +241,9 @@ async function main() {
       experience:
         'I have over 4 years of working experience with these type of tasks. I have good understanding of english language. 2 hrs min and travel expense may be added depending on distance. I look forward to working with you soon.',
       category: TaskCategory.electrician,
+      rating: '',
+      ratingCount: 0,
+      area: 'Karond',
       // inContact: [],
       // assigned: [],
     },
@@ -241,7 +255,7 @@ async function main() {
       // createdAt: '2020-01-02',
 
       firstname: 'june',
-      lastname: 'dark',
+      lastname: '',
       email: 'june@mail.com',
       image: '',
       pincode: '123456',
@@ -257,6 +271,11 @@ async function main() {
       experience:
         // eslint-disable-next-line quotes
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make atype specimen book. It has survived not only five centuries",
+
+      rating: '',
+      ratingCount: 0,
+      area: 'Karond',
+
       // inContact: [],
       // assigned: [],
     },
@@ -267,6 +286,12 @@ async function main() {
     data: {
       isVerified: true,
     },
+  });
+
+  console.log(JSON.stringify(taskers[0]));
+
+  await prisma.tasker.createMany({
+    data: taskers as any,
   });
 
   // create tasks

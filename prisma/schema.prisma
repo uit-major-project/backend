@@ -50,7 +50,7 @@ enum TaskCategory {
   plumber
   driver
   technician
-  mounting
+  // mounting
 }
 
 enum Stars {
@@ -143,6 +143,11 @@ model Tasker {
   isVerified        Boolean // documents are verified by admin
   hasPaidOneTimeFee Boolean
   isActive          Boolean // isActive is true when the tasker is available for tasks
+
+  rating String
+  ratingCount Int
+
+  area String
 
   inContact Task[] @relation("TASKER_IN_CONTACT")
   assigned  Task[] @relation("TASKER_ASSIGNED")
