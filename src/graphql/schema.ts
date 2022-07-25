@@ -256,7 +256,6 @@ export const typeDefs = gql`
     updateTask(
       id: ID!
 
-      firstname: String
       description: String
       dueDate: String
       location: String
@@ -265,7 +264,7 @@ export const typeDefs = gql`
       taskerInContactEmail: String
 
       # bills        Bill[]
-
+      isPaymentDone: Boolean
       size: TaskSize
       status: TaskStatus # rating: Rating
     ): Task!
