@@ -144,6 +144,26 @@ export const typeDefs = gql`
 
   # union CurrentUser = User | null
 
+  # type ListMetadata {
+  #   count: Int!
+  # }
+
+  # type TaskFilter {
+  #   q: String
+  #   id: ID
+  #   id_neq: ID
+  #   description: String
+  #   description_neq: String
+  #   # views: Int
+  #   # views_lt: Int
+  #   # views_lte: Int
+  #   # views_gt: Int
+  #   # views_gte: Int
+  #   # views_neq: Int
+  #   user: String
+  #   user_neq: String
+  # }
+
   type Query {
     # user
     getCurrentUser(jwt: String!): User
@@ -158,6 +178,12 @@ export const typeDefs = gql`
     task(id: ID!): Task!
     tasks: [Task]
     tasksByUserId(userId: ID!): [Task]!
+
+    # allTasks(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: TaskFilter): [Task]
+    # _allTasksMeta(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: TaskFilter): ListMetadata
+
+    # health
+    getHealth: String
   }
 
   type TaskerGoogleLoginResponse {

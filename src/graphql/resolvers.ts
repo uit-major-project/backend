@@ -6,6 +6,10 @@ import { v4 as uuidv4 } from 'uuid';
 // schema. This resolver retrieves books from the "books" array above.
 export const resolvers = {
   Query: {
+    getHealth: (_parent: any, _args: any, _ctx: Context) => {
+      return 'OK';
+    },
+
     /*
       USER QUERIES 
     */
@@ -105,7 +109,7 @@ export const resolvers = {
       // decode the jwt
       const decodedToken: any = jwtDecode(_args.jwt);
 
-      console.log('decoded token: ', decodedToken);
+      console.log('decoded token for login: ', decodedToken);
 
       // check if this user already exists
       const user = await ctx.prisma.user.findUnique({
@@ -120,14 +124,15 @@ export const resolvers = {
       date.setDate(date.getDate() + 7);
 
       const options: any = {
-        // httpOnly: true,
-        // secure: process.env.NODE_ENV === 'production' ? true : false,
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production' ? true : false,
         // sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+        domain: process.env.ROOT_DOMAIN_NAME,
       };
 
       if (process.env.NODE_ENV !== 'production') {
-        // options.domain = process.env.APP_DOMAIN;
-        options.domain = 'localhost';
+        options.domain = process.env.APP_DOMAIN;
+        // options.domain = 'localhost';
       } else {
         options.domain = process.env.ROOT_DOMAIN_NAME;
       }

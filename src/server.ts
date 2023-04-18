@@ -8,7 +8,7 @@ function createLocalServer(): any {
     typeDefs,
     resolvers,
     context: createContext,
-    // introspection: true,
+    introspection: true,
   });
 }
 

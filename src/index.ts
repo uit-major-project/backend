@@ -5,8 +5,8 @@ import cookieParser from 'cookie-parser';
 
 import { ApolloServer } from 'apollo-server-express';
 
-import * as Sentry from '@sentry/node';
-import { RewriteFrames } from '@sentry/integrations';
+// import * as Sentry from '@sentry/node';
+// import { RewriteFrames } from '@sentry/integrations';
 
 let server: ApolloServer<any>;
 
@@ -23,35 +23,57 @@ async function startServer() {
 
 startServer();
 
-Sentry.init({
-  dsn: process.env.SENTRY_DSN,
-  tracesSampleRate: 1.0,
-  integrations: [
-    new RewriteFrames({
-      root: global.__dirname,
-    }),
-  ],
-});
+/*
+ * Sentry error handling
+ */
 
-app.use(
-  Sentry.Handlers.errorHandler({
-    shouldHandleError(error) {
-      // Capture all 404 and 500 errors
-      if (
-        error.status &&
-        [400, 401, 402, 403, 404, 500].includes(Number(error.status))
-      ) {
-        return true;
-      }
-      return false;
-    },
-  })
-);
+// Sentry.init({
+//   dsn: process.env.SENTRY_DSN,
+//   tracesSampleRate: 1.0,
+//   integrations: [
+//     new RewriteFrames({
+//       root: global.__dirname,
+//     }),
+//   ],
+// });
+
+// app.use(
+//   Sentry.Handlers.errorHandler({
+//     shouldHandleError(error) {
+//       // Capture all 404 and 500 errors
+//       if (
+//         error.status &&
+//         [400, 401, 402, 403, 404, 500].includes(Number(error.status))
+//       ) {
+//         return true;
+//       }
+//       return false;
+//     },
+//   })
+// );
 
 console.log('APP_DOMAIN', process.env.APP_DOMAIN);
 
+// const corsOptions = {
+//   origin: [process.env.APP_DOMAIN],
+//   credentials: true,
+// };
+
+const WHITELIST_DOMAINS = [
+  'http://localhost:3000',
+  // 'http://localhost:4000',
+  'http://localhost:42029',
+  process.env.APP_DOMAIN,
+];
+
 const corsOptions = {
-  origin: process.env.APP_DOMAIN,
+  origin: function (origin: any, callback: any) {
+    if (WHITELIST_DOMAINS.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 };
 
@@ -61,6 +83,7 @@ const corsOptions = {
 //   app.use(cors(corsOptions));
 // }
 
+// app.use(cors());
 app.use(cors(corsOptions));
 
 app.use(cookieParser());
