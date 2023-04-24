@@ -2,6 +2,7 @@ import { createLocalServer } from './server';
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import morgan from 'morgan';
 
 import { ApolloServer } from 'apollo-server-express';
 
@@ -61,7 +62,7 @@ console.log('APP_DOMAIN', process.env.APP_DOMAIN);
 
 const WHITELIST_DOMAINS = [
   'http://localhost:3000',
-  // 'http://localhost:4000',
+  'http://localhost:4000',
   'http://localhost:42029',
   process.env.APP_DOMAIN,
 ];
@@ -87,6 +88,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(cookieParser());
+
+app.use(morgan('dev'));
 
 app.listen(PORT, () => {
   console.log(

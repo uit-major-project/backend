@@ -11,12 +11,23 @@ export type Context = {
 };
 
 export async function createContext({ req, res }: any): Promise<any> {
-  const token = req.cookies['jwt'] || '';
+  let decoded = '';
+
+  const token = req.headers.authorization || '';
+
+  const tokenCookie = req.header['jwt'] || '';
+
+  console.log('token cookie from context', tokenCookie);
+  console.log('token header from context', token);
 
   if (token !== '') {
-    const decoded = jwtDecode(token);
+    decoded = jwtDecode(token);
 
     console.log('token', decoded);
+  } else if (tokenCookie !== '') {
+    decoded = jwtDecode(tokenCookie);
+
+    console.log('token cookie', decoded);
   }
 
   // const user = req.user || null;
@@ -26,7 +37,7 @@ export async function createContext({ req, res }: any): Promise<any> {
     req,
     res,
     prisma,
-    // decoded,
+    user: decoded,
   };
 }
 // export async function(req: any):Promise<any> {

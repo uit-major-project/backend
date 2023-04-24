@@ -16,16 +16,12 @@ export const resolvers = {
     getCurrentUser: async (_parent: any, _args: any, ctx: Context) => {
       // const token = ctx.req.cookies['jwt'] || '';
 
-      if (_args.jwt === '') {
+      if (ctx.user === '') {
         return null;
       }
 
-      const decodedToken: any = jwtDecode(_args.jwt);
-
-      console.log('decodedToken from cu', decodedToken);
-
       const currentUser = await ctx.prisma.user.findUnique({
-        where: { id: decodedToken.sub },
+        where: { id: ctx.user.sub },
         include: {
           tasks: {
             include: {
@@ -106,10 +102,7 @@ export const resolvers = {
       _args: { jwt: string },
       ctx: Context
     ) => {
-      // decode the jwt
-      const decodedToken: any = jwtDecode(_args.jwt);
-
-      console.log('decoded token for login: ', decodedToken);
+      const decodedToken = ctx.user;
 
       // check if this user already exists
       const user = await ctx.prisma.user.findUnique({
@@ -120,14 +113,16 @@ export const resolvers = {
       });
 
       // set cookie
-      const date = new Date();
-      date.setDate(date.getDate() + 7);
+      // const date = new Date();
+      // date.setDate(date.getDate() + 7);
 
       const options: any = {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production' ? true : false,
-        // sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+        secure: process.env.NODE_ENV === 'production' ? true : false, // Marks the cookie to be used with HTTPS only.
+        sameSite: 'none',
         domain: process.env.ROOT_DOMAIN_NAME,
+        // maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
       };
 
       if (process.env.NODE_ENV !== 'production') {
@@ -232,13 +227,15 @@ export const resolvers = {
       });
 
       // set cookie
-      const date = new Date();
-      date.setDate(date.getDate() + 7);
+      // const date = new Date();
+      // date.setDate(date.getDate() + 7);
 
       const options: any = {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+        // maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
       };
 
       if (process.env.NODE_ENV !== 'production') {
