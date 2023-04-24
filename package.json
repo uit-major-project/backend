@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm i && tsc",
     "start:dev": "ts-node-dev src/index.ts",
-    "start": "node built/src/index.js",
+    "start": "node built/src/index.js > /dev/null",
     "dev": "nodemon",
     "format": "prettier --write \"**/*.{ts}\"",
     "lint": "node_modules/.bin/eslint .",
