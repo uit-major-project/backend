@@ -1,4 +1,4 @@
-[dev](https://hs-bk-dev.herokuapp.com) | [prod](https://hs-bk-prod.herokuapp.com)
+https://hs-bk.onrender.com/graphql
 
 1. when working with a new version of db
 
