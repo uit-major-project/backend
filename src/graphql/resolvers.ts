@@ -34,6 +34,7 @@ export const resolvers = {
           tasks: {
             include: {
               taskerInContact: true,
+              user: true,
             },
           },
         },

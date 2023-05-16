@@ -85,7 +85,7 @@ export const typeDefs = gql`
     dueDate: String
     location: String!
     pincode: String!
-    user: User!
+    user: User
 
     taskerInContactId: String
     taskerAssignedId: String
