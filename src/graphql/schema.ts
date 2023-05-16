@@ -13,6 +13,8 @@ export const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
 
+    role: Role
+
     firstname: String!
     lastname: String!
     email: String!
@@ -68,6 +70,12 @@ export const typeDefs = gql`
     task: [Task]
   }
 
+  enum Role {
+    user
+    admin
+    tasker
+  }
+
   type Task {
     id: ID!
     createdAt: String!
@@ -81,7 +89,7 @@ export const typeDefs = gql`
 
     taskerInContactId: String
     taskerAssignedId: String
-    taskerInContact: Tasker!
+    taskerInContact: Tasker
     taskerAssigned: Tasker
 
     size: TaskSize!
@@ -96,14 +104,17 @@ export const typeDefs = gql`
     ratingId: String
   }
 
-  type admin {
+  type Admin {
     id: ID!
     createdAt: String!
     updatedAt: String!
 
+    role: Role
+
     firstname: String!
     lastname: String!
     email: String!
+    password: String!
     image: String
     phone: String
     permanentAddress: String
@@ -113,6 +124,8 @@ export const typeDefs = gql`
     id: ID!
     createdAt: String
     updatedAt: String
+
+    role: Role
 
     firstname: String!
     lastname: String!
@@ -175,7 +188,7 @@ export const typeDefs = gql`
     taskers: [Tasker]!
 
     # task
-    task(id: ID!): Task!
+    task(id: ID!): Task
     tasks: [Task]
     tasksByUserId(userId: ID!): [Task]!
 
@@ -184,11 +197,18 @@ export const typeDefs = gql`
 
     # health
     getHealth: String
+
+    # get logged in admin data (if token found)
+    getCurrentAdminUser: Admin
   }
 
   type TaskerGoogleLoginResponse {
     tasker: Tasker!
     hasAccount: Boolean!
+    message: String
+  }
+
+  type resType {
     message: String
   }
 
@@ -270,7 +290,7 @@ export const typeDefs = gql`
       location: String!
       pincode: String!
       userEmail: String!
-      taskerInContactEmail: String!
+      taskerInContactId: String
 
       # bills        Bill[]
 
@@ -287,12 +307,38 @@ export const typeDefs = gql`
       location: String
       pincode: String
       userEmail: String
-      taskerInContactEmail: String
+      taskerInContactId: String
 
       # bills        Bill[]
       isPaymentDone: Boolean
       size: TaskSize
       status: TaskStatus # rating: Rating
     ): Task!
+
+    createAdmin(
+      id: ID!
+      firstname: String!
+      lastname: String!
+      email: String!
+      password: String!
+      image: String
+      phone: String
+      permanentAddress: String
+    ): Admin
+    updateAdmin(
+      id: ID!
+      firstname: String
+      lastname: String
+      email: String
+      password: String
+      image: String
+      phone: String
+      permanentAddress: String
+    ): Admin
+    deleteAdmin(id: ID!): Admin!
+
+    # login/signup using Sign In With Google button takes in a jwt
+    loginAdmin(email: String!, password: String!): Admin
+    logoutAdmin: resType
   }
 `;

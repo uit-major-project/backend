@@ -38,107 +38,107 @@ enum Stars {
   five = 'five',
 }
 
-async function databaseSeeder() {
-  await prisma.user.create({
-    data: {
-      id: '21398436565571111',
-      firstname: 'test1',
-      lastname: 'email1',
-      email: 'testemail22211111@gmail.com',
-      // role: 'ADMIN',
-      image: '',
-      pincode: '',
-    },
-  });
+// async function databaseSeeder() {
+//   await prisma.user.create({
+//     data: {
+//       id: '21398436565571111',
+//       firstname: 'test1',
+//       lastname: 'email1',
+//       email: 'testemail22211111@gmail.com',
+//       // role: 'ADMIN',
+//       image: '',
+//       pincode: '',
+//     },
+//   });
 
-  await prisma.user.update({
-    where: { id: '21398436565571111' },
-    data: {
-      // id: '2139843656556',
-      tasks: {
-        create: {
-          id: '21398436565571',
-          // createdAt: '2020-01-01',
-          // updatedAt: '2020-01-05',
+//   await prisma.user.update({
+//     where: { id: '21398436565571111' },
+//     data: {
+//       // id: '2139843656556',
+//       tasks: {
+//         create: {
+//           id: '21398436565571',
+//           // createdAt: '2020-01-01',
+//           // updatedAt: '2020-01-05',
 
-          description: 'Cleaning',
-          dueDate: new Date().toISOString(),
-          location: 'Location1',
-          pincode: '123456',
-          // user: {
-          //   connect: {
-          //     id: '213984365655',
-          //   }
-          // },
+//           description: 'Cleaning',
+//           dueDate: new Date().toISOString(),
+//           location: 'Location1',
+//           pincode: '123456',
+//           // user: {
+//           //   connect: {
+//           //     id: '213984365655',
+//           //   }
+//           // },
 
-          taskerInContact: {
-            connect: {
-              id: '1111112',
-            },
-          },
+//           taskerInContact: {
+//             connect: {
+//               id: '1111112',
+//             },
+//           },
 
-          taskerAssigned: {
-            connect: {
-              id: '1111112',
-            },
-          },
-          // taskerAssigned: [],
+//           taskerAssigned: {
+//             connect: {
+//               id: '1111112',
+//             },
+//           },
+//           // taskerAssigned: [],
 
-          size: 'small',
-          status: 'open',
-          // type: 'cleaning',
+//           size: 'small',
+//           status: 'open',
+//           // type: 'cleaning',
 
-          category: 'cleaning',
+//           category: 'cleaning',
 
-          // rating: '',
+//           // rating: '',
 
-          // userId: '1111111',
-        },
-      },
-    },
-  });
-}
+//           // userId: '1111111',
+//         },
+//       },
+//     },
+//   });
+// }
 
-async function seedTaskers() {
-  await prisma.tasker.create({
-    data: {
-      id: '1111112',
-      // updatedAt: '2020-01-08',
-      // createdAt: '2020-01-02',
+// async function seedTaskers() {
+//   await prisma.tasker.create({
+//     data: {
+//       id: '1111112',
+//       // updatedAt: '2020-01-08',
+//       // createdAt: '2020-01-02',
 
-      firstname: 'jane',
-      lastname: 'maxwell',
-      email: 'jane1@mail.com',
-      image: '',
-      pincode: '123456',
-      phone: '1234567891',
-      permanentAddress: 'Permanent Address2',
+//       firstname: 'jane',
+//       lastname: 'maxwell',
+//       email: 'jane1@mail.com',
+//       image: '',
+//       pincode: '123456',
+//       phone: '1234567891',
+//       permanentAddress: 'Permanent Address2',
 
-      isVerified: false,
-      hasPaidOneTimeFee: true,
-      isActive: false,
+//       isVerified: false,
+//       hasPaidOneTimeFee: true,
+//       isActive: false,
 
-      pricePerHourInRs: 100,
-      experience: '',
-      category: TaskCategory.cook,
+//       pricePerHourInRs: 100,
+//       experience: '',
+//       category: TaskCategory.cook,
 
-      rating: '',
-      ratingCount: 0,
+//       rating: '',
+//       ratingCount: 0,
 
-      area: 'Karond',
+//       area: 'Karond',
 
-      // inContact: [],
-      // assigned: [],
-    },
-  });
+//       // inContact: [],
+//       // assigned: [],
+//     },
+//   });
 
-  await prisma.tasker.update({
-    where: { id: '1111112' },
-    data: {
-      isVerified: true,
-    },
-  });
-}
+//   await prisma.tasker.update({
+//     where: { id: '1111112' },
+//     data: {
+//       isVerified: true,
+//     },
+//   });
+// }
 
 // seedTaskers().catch((error) => {
 //   console.error('THIS ERROR -->', error);
@@ -290,6 +290,7 @@ async function main() {
 
   console.log(JSON.stringify(taskers[0]));
 
+  // seed justdial data
   await prisma.tasker.createMany({
     data: taskers as any,
   });
@@ -298,7 +299,7 @@ async function main() {
   const doCleaning = await prisma.task.create({
     data: {
       id: '1',
-      description: '',
+      description: 'clean the 3rd floor rooms',
       dueDate: new Date().toISOString(),
       location: 'Location1',
       pincode: '123456',
@@ -322,7 +323,7 @@ async function main() {
   const doPainting = await prisma.task.create({
     data: {
       id: '2',
-      description: '',
+      description: 'paint the 3rd floor rooms',
       dueDate: new Date().toISOString(),
       location: 'Location1',
       pincode: '123456',
@@ -341,6 +342,34 @@ async function main() {
       status: 'open',
 
       category: 'painter',
+    },
+  });
+
+  // create admins
+  const admin = await prisma.admin.create({
+    data: {
+      id: '1234567893',
+      firstname: 'Prince',
+      lastname: 'Agrawal',
+      email: 'prince@hs.com',
+      password: '123456zxc',
+      // role: 'ADMIN',
+      image: '',
+      phone: '',
+      permanentAddress: '',
+    },
+  });
+  const admin2 = await prisma.admin.create({
+    data: {
+      id: '1234567894',
+      firstname: 'Shubham',
+      lastname: 'Verma',
+      email: 'shubham@hs.com',
+      password: '123456zxc',
+      // role: 'ADMIN',
+      image: '',
+      phone: '',
+      permanentAddress: '',
     },
   });
 

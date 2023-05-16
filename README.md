@@ -5,3 +5,7 @@
 - npm run db:reset
 - npm run db:sync
 - npm run db:seed
+
+TODO
+
+- add Token type

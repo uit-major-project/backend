@@ -16,6 +16,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  role Role @default(user)
+
   firstname        String
   lastname         String
   email            String  @unique
@@ -31,6 +33,12 @@ enum TaskSize {
   small
   medium
   large
+}
+
+enum Role {
+  user
+  tasker
+  admin
 }
 
 enum TaskStatus {
@@ -86,8 +94,8 @@ model Task {
   pincode     String
   user        User      @relation(fields: [userId], references: [id])
 
-  taskerInContact   Tasker  @relation("TASKER_IN_CONTACT", fields: [taskerInContactId], references: [id])
-  taskerInContactId String
+  taskerInContact   Tasker? @relation("TASKER_IN_CONTACT", fields: [taskerInContactId], references: [id])
+  taskerInContactId String?
   taskerAssigned    Tasker? @relation("TASKER_ASSIGNED", fields: [taskerAssignedId], references: [id])
   taskerAssignedId  String?
   // bills        Bill[]
@@ -95,8 +103,8 @@ model Task {
   size   TaskSize
   status TaskStatus
 
-  category TaskCategory
-  isPaymentDone  Boolean  @default(false)
+  category      TaskCategory
+  isPaymentDone Boolean      @default(false)
 
   rating Rating? @relation(fields: [ratingId], references: [id])
 
@@ -104,15 +112,18 @@ model Task {
   ratingId String?
 }
 
-model admin {
+model Admin {
   // id        String   @id @default(uuid())
   id        String   @id
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  role Role @default(admin)
+
   firstname        String
   lastname         String
   email            String  @unique
+  password         String
   image            String?
   phone            String?
   permanentAddress String?
@@ -123,6 +134,8 @@ model Tasker {
   id        String   @id
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  role Role @default(tasker)
 
   firstname        String
   lastname         String
@@ -144,12 +157,12 @@ model Tasker {
   hasPaidOneTimeFee Boolean
   isActive          Boolean // isActive is true when the tasker is available for tasks
 
-  rating String
+  rating      String
   ratingCount Int
 
   area String
 
-  inContact Task[] @relation("TASKER_IN_CONTACT")
-  assigned  Task[] @relation("TASKER_ASSIGNED")
+  inContact Task[]  @relation("TASKER_IN_CONTACT")
+  assigned  Task[]  @relation("TASKER_ASSIGNED")
   ratingId  String?
 }
